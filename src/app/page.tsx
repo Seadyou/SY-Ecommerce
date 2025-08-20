@@ -4,24 +4,27 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-50">
-      <Header />
-
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image */}
+      {/* Hero Container - covers header + hero section */}
+      <div className="relative">
+        {/* Hero Background - covers header and hero section */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: 'url(/images/hero_bg.jpg)',
           }}
         />
-
+        
         {/* Dark Overlay for better text readability */}
         <div className="absolute inset-0 bg-black/40" />
+        
+        <Header />
+
+        {/* Hero Section */}
+        <section className="relative h-screen flex items-start justify-center overflow-hidden pt-32 md:pt-40">
 
         {/* Hero Content */}
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Discover Your
             <span className="block text-primary-300">Perfect Style</span>
           </h1>
@@ -58,6 +61,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </div>
 
       {/* Additional content sections can go here */}
       <main className="sy-container py-16">
