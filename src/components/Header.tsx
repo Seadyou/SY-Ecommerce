@@ -1,19 +1,36 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Search, ShoppingCart, User, Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [cartCount] = useState(3) // Mock cart count
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      setIsScrolled(scrollTop > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-200">
+    <header className={`sticky z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'top-4 mx-4 bg-white/95 backdrop-blur-md shadow-lg border border-neutral-200/50 py-2 header-floating rounded-2xl' 
+        : 'top-0 bg-white/80 backdrop-blur-sm border-b border-transparent py-0'
+    }`}>
       <div className="sy-container">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className={`flex items-center justify-between transition-all duration-300 ${
+          isScrolled ? 'h-14 lg:h-16' : 'h-16 lg:h-20'
+        }`}>
           
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">

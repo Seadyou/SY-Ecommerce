@@ -55,9 +55,11 @@
   --color-error-500: #ef4444;
 }
 
-/* Typography */
-.font-heading {
+/* Hero Title Font Class - Using Poppins */
+.hero-title {
   font-family: var(--font-poppins), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 /* Custom component classes */
@@ -136,6 +138,7 @@
   box-shadow: 0 0 0 2px var(--color-primary-500);
 }
 
+
 /* Hide scrollbars for carousel */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -144,5 +147,17 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+
+/* Header floating effect */
+.header-floating {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
 }
 
