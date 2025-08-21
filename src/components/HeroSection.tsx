@@ -1,3 +1,4 @@
+
 import Link from 'next/link'
 import Header from './Header'
 
@@ -5,6 +6,7 @@ export default function HeroSection() {
   return (
     <div className="relative">
       {/* Hero Background - covers header and hero section */}
+
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
@@ -61,3 +63,4 @@ export default function HeroSection() {
     </div>
   )
 }
+
