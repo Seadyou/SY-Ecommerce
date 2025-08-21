@@ -4,6 +4,7 @@ import HeroSection from '@/components/HeroSection'
 import SaleBanner from '@/components/SaleBanner'
 import CategorySection from '@/components/CategorySection'
 import LatestArrivals from '@/components/LatestArrivals'
+import PromotionalSection from '@/components/PromotionalSection'
 
 
 export default function Home() {
@@ -36,6 +37,9 @@ export default function Home() {
 
       {/* Latest Arrivals Section */}
       <LatestArrivals />
+
+      {/* Promotional Section */}
+      <PromotionalSection />
 
     </div>
   )

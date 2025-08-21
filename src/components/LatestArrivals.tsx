@@ -9,6 +9,7 @@ const latestProducts = [
     id: 1,
     name: "Women's Oversized Sweatshirt",
     image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=500&fit=crop&crop=center',
+    hoverImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=center',
     originalPrice: 85.00,
     salePrice: 51.00,
     discount: 40,
@@ -18,6 +19,7 @@ const latestProducts = [
     id: 2,
     name: "Drawstring Linen Pants",
     image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=500&fit=crop&crop=center',
+    hoverImage: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=400&h=500&fit=crop&crop=center',
     originalPrice: 45.00,
     salePrice: 45.00,
     discount: 0,
@@ -27,6 +29,7 @@ const latestProducts = [
     id: 3,
     name: "Bucket Hat",
     image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=500&fit=crop&crop=center',
+    hoverImage: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400&h=500&fit=crop&crop=center',
     originalPrice: 30.00,
     salePrice: 9.00,
     discount: 70,
@@ -36,6 +39,7 @@ const latestProducts = [
     id: 4,
     name: "Unisex Oversized T-Shirt",
     image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop&crop=center',
+    hoverImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=center',
     originalPrice: 40.00,
     salePrice: 28.00,
     discount: 30,
@@ -46,6 +50,7 @@ const latestProducts = [
     id: 5,
     name: "Men's Cotton Shorts",
     image: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=400&h=500&fit=crop&crop=center',
+    hoverImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=center',
     originalPrice: 80.00,
     salePrice: 80.00,
     discount: 0,
@@ -55,6 +60,7 @@ const latestProducts = [
     id: 6,
     name: "Ribbed Socks",
     image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=500&fit=crop&crop=center',
+    hoverImage: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400&h=500&fit=crop&crop=center',
     originalPrice: 7.50,
     salePrice: 7.50,
     discount: 0,
@@ -65,6 +71,7 @@ const latestProducts = [
     id: 7,
     name: "Women's Crewneck Sweater",
     image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=500&fit=crop&crop=center',
+    hoverImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=center',
     originalPrice: 120.00,
     salePrice: 84.00,
     discount: 30,
@@ -74,6 +81,7 @@ const latestProducts = [
     id: 8,
     name: "Classic Denim Jacket",
     image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop&crop=center',
+    hoverImage: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=400&h=500&fit=crop&crop=center',
     originalPrice: 95.00,
     salePrice: 95.00,
     discount: 0,
@@ -160,14 +168,23 @@ export default function LatestArrivals() {
                 href={product.href}
                 className="group relative bg-white rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 product-card min-w-[280px]"
               >
-                {/* Product Image */}
-                <div className="aspect-[4/5] relative overflow-hidden">
-                  <div 
-                    className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-300"
-                    style={{
-                      backgroundImage: `url(${product.image})`
-                    }}
-                  />
+                               {/* Product Image */}
+               <div className="aspect-[4/5] relative overflow-hidden">
+                 {/* Default Image */}
+                 <div 
+                   className="w-full h-full bg-cover bg-center transition-all duration-500 group-hover:opacity-0"
+                   style={{
+                     backgroundImage: `url(${product.image})`
+                   }}
+                 />
+                 
+                 {/* Hover Image */}
+                 <div 
+                   className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
+                   style={{
+                     backgroundImage: `url(${product.hoverImage})`
+                   }}
+                 />
                   
                   {/* Discount Badge */}
                   {product.discount > 0 && (
