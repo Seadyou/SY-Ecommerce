@@ -1,26 +1,9 @@
 
 import Link from 'next/link'
-import Header from './Header'
 
 export default function HeroSection() {
   return (
-    <div className="relative">
-      {/* Hero Background - covers header and hero section */}
-
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url(/images/hero_bg.jpg)',
-        }}
-      />
-      
-      {/* Dark Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/40" />
-      
-      <Header />
-
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-start justify-center overflow-hidden pt-32 md:pt-40">
+    <section className="relative h-screen flex items-start justify-center overflow-hidden pt-32 md:pt-40">
         {/* Hero Content */}
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
           <h1 className="hero-title text-5xl md:text-7xl font-bold mb-6 leading-tight">
@@ -59,8 +42,7 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-      </section>
-    </div>
+    </section>
   )
 }
 
