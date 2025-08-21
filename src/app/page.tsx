@@ -9,9 +9,12 @@ import LatestArrivals from '@/components/LatestArrivals'
 export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-50">
-      {/* Hero Container - covers header + hero section */}
-      <div className="relative">
-        {/* Hero Background - covers header and hero section */}
+      {/* Header floats above all content */}
+      <Header />
+
+      {/* Hero Container - extends behind header */}
+      <div className="relative -mt-20 pt-20">
+        {/* Hero Background - covers header area and hero section */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -22,7 +25,6 @@ export default function Home() {
         {/* Dark Overlay for better text readability */}
         <div className="absolute inset-0 bg-black/40" />
 
-        <Header />
         <HeroSection />
       </div>
 
