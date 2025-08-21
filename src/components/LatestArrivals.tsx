@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const latestProducts = [
   {
@@ -139,21 +140,25 @@ export default function LatestArrivals() {
         <div className="relative">
           {/* Navigation Buttons */}
           {currentIndex > 0 && (
-            <button
+            <Button
+              variant="secondary"
+              size="icon"
               onClick={scrollToPrev}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-all duration-200"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white"
             >
               <ChevronLeft className="w-5 h-5 text-secondary-700" />
-            </button>
+            </Button>
           )}
           
           {currentIndex < latestProducts.length - 4 && (
-            <button
+            <Button
+              variant="secondary"
+              size="icon"
               onClick={scrollToNext}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-all duration-200"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white"
             >
               <ChevronRight className="w-5 h-5 text-secondary-700" />
-            </button>
+            </Button>
           )}
 
           {/* Scrollable Product Container */}

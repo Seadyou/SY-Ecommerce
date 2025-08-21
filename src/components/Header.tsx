@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Search, ShoppingCart, User, Menu, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -84,9 +85,9 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             
             {/* Search Icon - Mobile */}
-            <button className="lg:hidden p-2 text-secondary-700 hover:text-primary-500 transition-colors duration-200">
+            <Button variant="ghost" size="icon" className="lg:hidden text-secondary-700 hover:text-primary-500">
               <Search className="w-5 h-5" />
-            </button>
+            </Button>
 
             {/* User Account */}
             <Link 
@@ -107,12 +108,14 @@ export default function Header() {
             </Link>
 
             {/* Mobile Menu Button */}
-            <button 
+            <Button 
+              variant="ghost" 
+              size="icon"
               onClick={toggleMenu}
-              className="lg:hidden p-2 text-secondary-700 hover:text-primary-500 transition-colors duration-200"
+              className="lg:hidden text-secondary-700 hover:text-primary-500"
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            </Button>
           </div>
         </div>
 

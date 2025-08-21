@@ -1,5 +1,6 @@
 
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 export default function HeroSection() {
   return (
@@ -17,31 +18,21 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              href="/products"
-              className="sy-button-primary text-lg px-8 py-4 inline-block hover:scale-105 transition-transform duration-200"
-            >
-              Shop Collection
-            </Link>
+            <Button asChild variant="default" size="lg" className="bg-primary-500 hover:bg-primary-600 text-white text-lg px-8 py-4 hover:scale-105 transition-transform duration-200">
+              <Link href="/products">
+                Shop Collection
+              </Link>
+            </Button>
 
-            <Link
-              href="/about"
-              className="border-2 border-white text-white hover:bg-white hover:text-secondary-950 font-medium text-lg px-8 py-4 rounded-lg transition-all duration-200"
-            >
-              Learn More
-            </Link>
+            <Button asChild variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white hover:text-secondary-950 text-lg px-8 py-4">
+              <Link href="/about">
+                Learn More
+              </Link>
+            </Button>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
-          <div className="flex flex-col items-center">
-            <span className="text-sm mb-2">Scroll to explore</span>
-            <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
-            </div>
-          </div>
-        </div>
+
     </section>
   )
 }

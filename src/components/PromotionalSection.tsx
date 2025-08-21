@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 export default function PromotionalSection() {
   return (
@@ -8,11 +9,12 @@ export default function PromotionalSection() {
       {/* Video Background */}
       <div className="absolute inset-0">
         <video
-          autoPlay
-          loop
-          muted
-          playsInline
+          autoPlay={true}
+          loop={true}
+          muted={true}
+          playsInline={true}
           className="w-full h-full object-cover"
+          suppressHydrationWarning={true}
         >
           <source src="/videos/promotional-bg.mp4" type="video/mp4" />
           {/* Fallback background if video doesn't load */}
@@ -34,12 +36,11 @@ export default function PromotionalSection() {
 
 
           {/* Call to Action Button */}
-          <Link
-            href="/sale"
-            className="inline-block bg-white text-secondary-950 font-semibold px-8 py-4 rounded-lg hover:bg-neutral-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
-          >
-            Shop Sale
-          </Link>
+          <Button asChild size="lg" className="bg-white text-secondary-950 hover:bg-neutral-100 px-8 py-4 shadow-lg hover:scale-105 transition-all duration-300">
+            <Link href="/sale">
+              Shop Sale
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
