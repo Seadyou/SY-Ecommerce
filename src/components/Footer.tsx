@@ -8,10 +8,10 @@ export default function Footer() {
       {/* Help Section */}
       <section className="relative bg-primary-600 overflow-hidden">
         <div className="sy-container">
-          <div className="flex flex-col lg:flex-row items-center min-h-[400px] py-16 lg:py-20">
+          <div className="flex flex-col lg:flex-row items-start">
             {/* Text Content - Left Side */}
-            <div className="flex-1 text-white lg:pr-12">
-              <div className="max-w-lg">
+            <div className="flex-1 text-white lg:pr-12 self-center">
+              <div className="max-w-lg py-8 lg:py-0">
                 <p className="text-sm font-medium tracking-wider uppercase mb-4 text-primary-200">
                   NEED HELP
                 </p>
@@ -29,13 +29,14 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Portrait Image Placeholder - Right Side */}
-            <div className="flex-1 flex justify-center lg:justify-end mt-12 lg:mt-0">
-              <div className="w-80 h-96 bg-primary-500/20 rounded-lg flex items-center justify-center border-2 border-dashed border-primary-400/50">
-                <p className="text-primary-200 text-center px-4">
-                  Worker Portrait<br />
-                  (Transparent PNG)
-                </p>
+            {/* Worker Portrait - Full height */}
+            <div className="relative flex-1 w-full h-[600px] -mt-8">
+              <div className="relative h-full w-full">
+                <img 
+                  src="/images/Subject1.png" 
+                  alt="Worker Portrait" 
+                  className="h-full w-full object-contain object-bottom"
+                />
               </div>
             </div>
           </div>
