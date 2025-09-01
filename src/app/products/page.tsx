@@ -161,61 +161,84 @@ export default function ProductsPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           
           {/* Filters Sidebar */}
-          <div className="lg:w-64 flex-shrink-0">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-200">
-              <h3 className="text-lg font-semibold text-secondary-950 mb-4 flex items-center">
-                <Filter className="w-5 h-5 mr-2" />
-                Filters
-              </h3>
+          <div className="lg:w-72 flex-shrink-0">
+            <div className="bg-white rounded-3xl p-8 shadow-xl border border-neutral-100 hover:shadow-2xl transition-all duration-300 backdrop-blur-sm">
+              {/* Header with animated icon */}
+              <div className="mb-8">
+                <h3 className="text-xl font-bold text-secondary-950 mb-2 flex items-center group">
+                  <div className="p-2 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl mr-3 group-hover:scale-110 transition-transform duration-300">
+                    <Filter className="w-5 h-5 text-white" />
+                  </div>
+                  Filters
+                </h3>
+                <div className="w-12 h-1 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"></div>
+              </div>
 
               {/* Categories */}
-              <div className="mb-6">
-                <h4 className="font-medium text-secondary-700 mb-3">Categories</h4>
-                <div className="space-y-2">
-                  {categories.map((category) => (
+              <div className="mb-8">
+                <h4 className="font-semibold text-secondary-800 mb-4 text-lg">Categories</h4>
+                <div className="space-y-3">
+                  {categories.map((category, index) => (
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
-                      className={`w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 ${
+                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 ${
                         selectedCategory === category
-                          ? 'bg-primary-50 text-primary-700 font-medium'
-                          : 'text-secondary-600 hover:bg-neutral-100'
+                          ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold shadow-lg shadow-primary-500/25'
+                          : 'text-secondary-700 hover:bg-gradient-to-r hover:from-neutral-50 hover:to-neutral-100 hover:text-secondary-900 border border-transparent hover:border-neutral-200'
                       }`}
+                      style={{ animationDelay: `${index * 50}ms` }}
                     >
-                      {category}
+                      <div className="flex items-center justify-between">
+                        <span>{category}</span>
+                        {selectedCategory === category && (
+                          <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        )}
+                      </div>
                     </button>
                   ))}
                 </div>
               </div>
 
               {/* Price Range */}
-              <div className="mb-6">
-                <h4 className="font-medium text-secondary-700 mb-3">Price Range</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-secondary-600">${priceRange[0]}</span>
-                    <span className="text-sm text-secondary-600">${priceRange[1]}</span>
+              <div className="mb-8">
+                <h4 className="font-semibold text-secondary-800 mb-4 text-lg">Price Range</h4>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between bg-gradient-to-r from-neutral-50 to-neutral-100 p-3 rounded-xl">
+                    <span className="text-sm font-medium text-secondary-700">${priceRange[0]}</span>
+                    <div className="w-1 h-1 bg-primary-500 rounded-full"></div>
+                    <span className="text-sm font-medium text-secondary-700">${priceRange[1]}</span>
                   </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="500"
-                    value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                    className="w-full h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer slider"
-                  />
+                  
+                  <div className="relative">
+                    <input
+                      type="range"
+                      min="0"
+                      max="500"
+                      value={priceRange[1]}
+                      onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
+                      className="w-full h-3 bg-gradient-to-r from-neutral-200 to-neutral-300 rounded-full appearance-none cursor-pointer slider-thumb"
+                      style={{
+                        background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${(priceRange[1] / 500) * 100}%, #e5e7eb ${(priceRange[1] / 500) * 100}%, #e5e7eb 100%)`
+                      }}
+                    />
+                    <div className="absolute -top-2 left-0 w-6 h-6 bg-primary-500 rounded-full shadow-lg transform -translate-x-1/2 pointer-events-none animate-pulse"></div>
+                  </div>
                 </div>
               </div>
 
               {/* Clear Filters */}
               <Button
                 variant="outline"
-                className="w-full"
+                className="w-full py-3 border-2 border-neutral-200 hover:border-primary-500 hover:bg-primary-50 text-secondary-700 hover:text-primary-700 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105"
                 onClick={() => {
                   setSelectedCategory("All")
                   setPriceRange([0, 500])
                 }}
               >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
                 Clear Filters
               </Button>
             </div>
@@ -224,49 +247,61 @@ export default function ProductsPage() {
           {/* Products Grid */}
           <div className="flex-1">
             {/* Toolbar */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-              <div className="flex items-center gap-4">
-                <span className="text-secondary-600">
-                  {sortedProducts.length} products found
-                </span>
-              </div>
-              
-              <div className="flex items-center gap-4">
-                {/* Sort */}
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 py-2 border border-neutral-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  {sortOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+            <div className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-100 mb-8">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-primary-500 rounded-full animate-pulse"></div>
+                    <span className="text-secondary-700 font-medium">
+                      <span className="text-primary-600 font-semibold">{sortedProducts.length}</span> products found
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  {/* Sort */}
+                  <div className="relative">
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="px-4 py-2 border-2 border-neutral-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white appearance-none cursor-pointer transition-all duration-200 hover:border-primary-300"
+                    >
+                      {sortOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                      <svg className="w-4 h-4 text-secondary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
 
-                {/* View Mode */}
-                <div className="flex items-center border border-neutral-200 rounded-lg">
-                  <button
-                    onClick={() => setViewMode("grid")}
-                    className={`p-2 transition-colors duration-200 ${
-                      viewMode === "grid"
-                        ? "bg-primary-50 text-primary-700"
-                        : "text-secondary-600 hover:bg-neutral-100"
-                    }`}
-                  >
-                    <Grid className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setViewMode("list")}
-                    className={`p-2 transition-colors duration-200 ${
-                      viewMode === "list"
-                        ? "bg-primary-50 text-primary-700"
-                        : "text-secondary-600 hover:bg-neutral-100"
-                    }`}
-                  >
-                    <List className="w-4 h-4" />
-                  </button>
+                  {/* View Mode */}
+                  <div className="flex items-center bg-neutral-50 rounded-xl p-1 border border-neutral-200">
+                    <button
+                      onClick={() => setViewMode("grid")}
+                      className={`p-2 rounded-lg transition-all duration-300 ${
+                        viewMode === "grid"
+                          ? "bg-white text-primary-600 shadow-md transform scale-105"
+                          : "text-secondary-600 hover:text-secondary-900 hover:bg-white/50"
+                      }`}
+                    >
+                      <Grid className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => setViewMode("list")}
+                      className={`p-2 rounded-lg transition-all duration-300 ${
+                        viewMode === "list"
+                          ? "bg-white text-primary-600 shadow-md transform scale-105"
+                          : "text-secondary-600 hover:text-secondary-900 hover:bg-white/50"
+                      }`}
+                    >
+                      <List className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -388,15 +423,33 @@ function ProductCard({ product, viewMode }: { product: any; viewMode: "grid" | "
           </span>
         )}
         
+        {/* Wishlist Button - Top Right */}
+        <Button 
+          size="sm" 
+          variant="ghost" 
+          className="absolute top-2 right-2 bg-white/80 backdrop-blur-sm hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+        >
+          <Heart className="w-4 h-4" />
+        </Button>
+        
+        {/* Add to Cart Button - Centered on Image */}
+        <Button 
+          size="sm" 
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-800/90 backdrop-blur-sm hover:bg-neutral-800 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+        >
+          <ShoppingCart className="w-4 h-4 mr-2" />
+          Add to Cart
+        </Button>
+        
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200 rounded-lg" />
       </div>
       
       <div className="space-y-2">
+        <p className="text-sm text-secondary-600">{product.category}</p>
+        
         <h3 className="font-semibold text-secondary-950 group-hover:text-primary-600 transition-colors duration-200">
           {product.name}
         </h3>
-        
-        <p className="text-sm text-secondary-600">{product.category}</p>
         
         <div className="flex items-center gap-2">
           <div className="flex items-center">
@@ -406,18 +459,11 @@ function ProductCard({ product, viewMode }: { product: any; viewMode: "grid" | "
           <span className="text-sm text-secondary-500">({product.reviews})</span>
         </div>
         
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-secondary-950">${product.price}</span>
-            {isOnSale && (
-              <span className="text-sm text-secondary-500 line-through">${product.originalPrice}</span>
-            )}
-          </div>
-          
-          <Button size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-            <ShoppingCart className="w-4 h-4 mr-2" />
-            Add
-          </Button>
+        <div className="flex items-center gap-2">
+          <span className="font-bold text-secondary-950">${product.price}</span>
+          {isOnSale && (
+            <span className="text-sm text-secondary-500 line-through">${product.originalPrice}</span>
+          )}
         </div>
       </div>
     </div>

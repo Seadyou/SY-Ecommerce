@@ -6,6 +6,7 @@ import CategorySection from '@/components/CategorySection'
 import LatestArrivals from '@/components/LatestArrivals'
 import Footer from '@/components/Footer'
 import PromotionalSection from '@/components/PromotionalSection'
+import HelpSection from '@/components/HelpSection'
 
 
 export default function Home() {
@@ -41,6 +42,9 @@ export default function Home() {
 
       {/* Promotional Section */}
       <PromotionalSection />
+
+      {/* Help Section */}
+      <HelpSection />
 
       {/* Footer */}
       <Footer />
