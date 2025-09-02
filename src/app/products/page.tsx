@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { motion } from 'motion/react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
+import { Slider } from '@/components/ui/slider'
 import { Filter, Grid, List, Star, ShoppingCart, Heart } from 'lucide-react'
 
 // Mock product data
@@ -148,7 +150,7 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-neutral-50">
       <Header />
-      
+
       {/* Page Header */}
       <div className="bg-white border-b border-neutral-200">
         <div className="sy-container py-8">
@@ -159,7 +161,7 @@ export default function ProductsPage() {
 
       <div className="sy-container py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          
+
           {/* Filters Sidebar */}
           <div className="lg:w-72 flex-shrink-0">
             <div className="bg-white rounded-3xl p-8 shadow-xl border border-neutral-100 hover:shadow-2xl transition-all duration-300 backdrop-blur-sm">
@@ -182,11 +184,10 @@ export default function ProductsPage() {
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
-                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 ${
-                        selectedCategory === category
-                          ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold shadow-lg shadow-primary-500/25'
-                          : 'text-secondary-700 hover:bg-gradient-to-r hover:from-neutral-50 hover:to-neutral-100 hover:text-secondary-900 border border-transparent hover:border-neutral-200'
-                      }`}
+                      className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 ${selectedCategory === category
+                        ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold shadow-lg shadow-primary-500/25'
+                        : 'text-secondary-700 hover:bg-gradient-to-r hover:from-neutral-50 hover:to-neutral-100 hover:text-secondary-900 border border-transparent hover:border-neutral-200'
+                        }`}
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
                       <div className="flex items-center justify-between">
@@ -209,20 +210,16 @@ export default function ProductsPage() {
                     <div className="w-1 h-1 bg-primary-500 rounded-full"></div>
                     <span className="text-sm font-medium text-secondary-700">${priceRange[1]}</span>
                   </div>
-                  
-                  <div className="relative">
-                    <input
-                      type="range"
-                      min="0"
-                      max="500"
-                      value={priceRange[1]}
-                      onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                      className="w-full h-3 bg-gradient-to-r from-neutral-200 to-neutral-300 rounded-full appearance-none cursor-pointer slider-thumb"
-                      style={{
-                        background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${(priceRange[1] / 500) * 100}%, #e5e7eb ${(priceRange[1] / 500) * 100}%, #e5e7eb 100%)`
-                      }}
+
+                  <div className="px-2 price-range-slider">
+                    <Slider
+                      value={priceRange}
+                      onValueChange={setPriceRange}
+                      max={500}
+                      min={0}
+                      step={1}
+                      className="w-full"
                     />
-                    <div className="absolute -top-2 left-0 w-6 h-6 bg-primary-500 rounded-full shadow-lg transform -translate-x-1/2 pointer-events-none animate-pulse"></div>
                   </div>
                 </div>
               </div>
@@ -257,7 +254,7 @@ export default function ProductsPage() {
                     </span>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
                   {/* Sort */}
                   <div className="relative">
@@ -283,21 +280,19 @@ export default function ProductsPage() {
                   <div className="flex items-center bg-neutral-50 rounded-xl p-1 border border-neutral-200">
                     <button
                       onClick={() => setViewMode("grid")}
-                      className={`p-2 rounded-lg transition-all duration-300 ${
-                        viewMode === "grid"
-                          ? "bg-white text-primary-600 shadow-md transform scale-105"
-                          : "text-secondary-600 hover:text-secondary-900 hover:bg-white/50"
-                      }`}
+                      className={`p-2 rounded-lg transition-all duration-300 ${viewMode === "grid"
+                        ? "bg-white text-primary-600 shadow-md transform scale-105"
+                        : "text-secondary-600 hover:text-secondary-900 hover:bg-white/50"
+                        }`}
                     >
                       <Grid className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => setViewMode("list")}
-                      className={`p-2 rounded-lg transition-all duration-300 ${
-                        viewMode === "list"
-                          ? "bg-white text-primary-600 shadow-md transform scale-105"
-                          : "text-secondary-600 hover:text-secondary-900 hover:bg-white/50"
-                      }`}
+                      className={`p-2 rounded-lg transition-all duration-300 ${viewMode === "list"
+                        ? "bg-white text-primary-600 shadow-md transform scale-105"
+                        : "text-secondary-600 hover:text-secondary-900 hover:bg-white/50"
+                        }`}
                     >
                       <List className="w-4 h-4" />
                     </button>
@@ -307,11 +302,10 @@ export default function ProductsPage() {
             </div>
 
             {/* Products Grid */}
-            <div className={`grid gap-6 ${
-              viewMode === "grid" 
-                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
-                : "grid-cols-1"
-            }`}>
+            <div className={`grid gap-6 ${viewMode === "grid"
+              ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              : "grid-cols-1"
+              }`}>
               {sortedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} viewMode={viewMode} />
               ))}
@@ -343,10 +337,17 @@ export default function ProductsPage() {
 
 function ProductCard({ product, viewMode }: { product: any; viewMode: "grid" | "list" }) {
   const isOnSale = product.originalPrice > product.price
+  const [isHovered, setIsHovered] = useState(false)
+
+
 
   if (viewMode === "list") {
     return (
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-200 hover:shadow-md transition-shadow duration-200">
+      <div
+        className="bg-white rounded-2xl p-6 shadow-sm border border-neutral-200 hover:shadow-md transition-shadow duration-200"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div className="flex gap-6">
           <div className="relative w-32 h-32 flex-shrink-0">
             <img
@@ -355,21 +356,37 @@ function ProductCard({ product, viewMode }: { product: any; viewMode: "grid" | "
               className="w-full h-full object-cover rounded-lg"
             />
             {product.isNew && (
-              <span className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+              <motion.span
+                className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full"
+                animate={{
+                  opacity: isHovered ? 0 : 1,
+                  scale: isHovered ? 0.8 : 1,
+                  y: isHovered ? -8 : 0
+                }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
                 New
-              </span>
+              </motion.span>
             )}
             {isOnSale && (
-              <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+              <motion.span
+                className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full"
+                animate={{
+                  opacity: isHovered ? 0 : 1,
+                  scale: isHovered ? 0.8 : 1,
+                  y: isHovered ? -8 : 0
+                }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
                 Sale
-              </span>
+              </motion.span>
             )}
           </div>
-          
+
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-secondary-950 mb-2">{product.name}</h3>
             <p className="text-secondary-600 mb-3">{product.category}</p>
-            
+
             <div className="flex items-center gap-2 mb-3">
               <div className="flex items-center">
                 <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -377,7 +394,7 @@ function ProductCard({ product, viewMode }: { product: any; viewMode: "grid" | "
               </div>
               <span className="text-sm text-secondary-500">({product.reviews} reviews)</span>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-xl font-bold text-secondary-950">${product.price}</span>
@@ -385,7 +402,7 @@ function ProductCard({ product, viewMode }: { product: any; viewMode: "grid" | "
                   <span className="text-sm text-secondary-500 line-through">${product.originalPrice}</span>
                 )}
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <Button size="sm" variant="outline">
                   <Heart className="w-4 h-4" />
@@ -403,54 +420,74 @@ function ProductCard({ product, viewMode }: { product: any; viewMode: "grid" | "
   }
 
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm border border-neutral-200 hover:shadow-md transition-all duration-200 group">
+    <div
+      className="bg-white rounded-2xl p-4 shadow-sm border border-neutral-200 hover:shadow-md transition-all duration-200 group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="relative mb-4">
         <img
           src={product.image}
           alt={product.name}
           className="w-full h-48 object-cover rounded-lg group-hover:scale-105 transition-transform duration-200"
         />
-        
+
         {product.isNew && (
-          <span className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+          <motion.span
+            className="absolute top-2 left-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full"
+            animate={{
+              opacity: isHovered ? 0 : 1,
+              scale: isHovered ? 0.8 : 1,
+              y: isHovered ? -8 : 0
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
             New
-          </span>
+          </motion.span>
         )}
-        
+
         {isOnSale && (
-          <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+          <motion.span
+            className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full"
+            animate={{
+              opacity: isHovered ? 0 : 1,
+              scale: isHovered ? 0.8 : 1,
+              y: isHovered ? -8 : 0
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
             Sale
-          </span>
+          </motion.span>
         )}
-        
+
         {/* Wishlist Button - Top Right */}
-        <Button 
-          size="sm" 
-          variant="ghost" 
+        <Button
+          size="sm"
+          variant="ghost"
           className="absolute top-2 right-2 bg-white/80 backdrop-blur-sm hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
         >
           <Heart className="w-4 h-4" />
         </Button>
-        
+
         {/* Add to Cart Button - Centered on Image */}
-        <Button 
-          size="sm" 
+        <Button
+          size="sm"
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-neutral-800/90 backdrop-blur-sm hover:bg-neutral-800 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
         >
           <ShoppingCart className="w-4 h-4 mr-2" />
           Add to Cart
         </Button>
-        
+
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200 rounded-lg" />
       </div>
-      
+
       <div className="space-y-2">
         <p className="text-sm text-secondary-600">{product.category}</p>
-        
+
         <h3 className="font-semibold text-secondary-950 group-hover:text-primary-600 transition-colors duration-200">
           {product.name}
         </h3>
-        
+
         <div className="flex items-center gap-2">
           <div className="flex items-center">
             <Star className="w-4 h-4 text-yellow-400 fill-current" />
@@ -458,7 +495,7 @@ function ProductCard({ product, viewMode }: { product: any; viewMode: "grid" | "
           </div>
           <span className="text-sm text-secondary-500">({product.reviews})</span>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <span className="font-bold text-secondary-950">${product.price}</span>
           {isOnSale && (
