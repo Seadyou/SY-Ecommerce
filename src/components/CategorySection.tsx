@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { CometCard } from '@/components/ui/comet-card'
 
 const categoriesData = {
   women: [
@@ -70,35 +71,36 @@ export default function CategorySection() {
         {/* Category Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {categories.map((category) => (
-            <Link
-              key={category.id}
-              href={category.href}
-              className="group relative overflow-hidden rounded-lg bg-neutral-100 hover:shadow-lg transition-all duration-300"
-            >
-              {/* Category Image */}
-              <div className="aspect-[4/5] relative overflow-hidden">
-                <div
-                  className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-300"
-                  style={{
-                    backgroundImage: `url(${category.image})`
-                  }}
-                />
-
-                {/* Category Label Overlay */}
-                <div className="absolute bottom-4 right-4">
-                  <Button
-                    variant="secondary"
-                    className="bg-accent-200 border-accent-300 text-secondary-950 hover:bg-accent-300 transition-all duration-300"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      window.location.href = category.href
+            <CometCard key={category.id} className="w-full">
+              <Link
+                href={category.href}
+                className="group relative overflow-hidden rounded-2xl bg-neutral-100 block"
+              >
+                {/* Category Image */}
+                <div className="aspect-[4/5] relative overflow-hidden rounded-2xl">
+                  <div
+                    className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-300"
+                    style={{
+                      backgroundImage: `url(${category.image})`
                     }}
-                  >
-                    {category.name}
-                  </Button>
+                  />
+
+                  {/* Category Label Overlay */}
+                  <div className="absolute bottom-4 right-4">
+                    <Button
+                      variant="secondary"
+                      className="bg-accent-200 border-accent-300 text-secondary-950 hover:bg-accent-300 transition-all duration-300"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        window.location.href = category.href
+                      }}
+                    >
+                      {category.name}
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </CometCard>
           ))}
         </div>
       </div>
