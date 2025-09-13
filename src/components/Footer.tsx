@@ -75,6 +75,11 @@ export default function Footer() {
                     Security
                   </Link>
                 </li>
+                <li>
+                  <Link href="/faq" className="text-secondary-300 hover:text-white transition-colors duration-200">
+                    FAQ
+                  </Link>
+                </li>
               </ul>
             </div>
 
